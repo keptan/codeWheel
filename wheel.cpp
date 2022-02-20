@@ -58,14 +58,15 @@ auto main (int argc, char** argv) -> int
 		if(!isalpha(inChar)) return inChar;
 		const auto normalI = inChar - 'A';
 		const auto normald = dChar  - 'A';
-		const auto output  = ((inChar - dChar) % 26) + 'A';
-		return output;
+		const auto output  = (inChar - dChar);
+		const auto reN 	   =  (output < 0 ? output + 26 : output ) + 'A';
+		return reN;
 	};
 			
 	const auto inputStripped  = fileStream(input) | Map(toUpper);
 	const auto streamStripped = fileStream(dict)  | Map(toUpper) | Filter(isalpha) | Loop();
 
-	if(unencrpt) eval (inputStripped | Zip(streamStripped) | Map(uCipher) | Map(put));
+	if(unencrypt) eval (inputStripped | Zip(streamStripped) | Map(uCipher) | Map(put));
 	else eval (inputStripped | Zip(streamStripped) | Map(cipher) | Map(put));
 }
 
